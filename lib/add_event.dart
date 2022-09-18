@@ -41,57 +41,72 @@ class _EventMYState extends State<EventMY> {
         width: double.infinity,
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: TextField(
-                    controller: myController0,
-                    decoration: const InputDecoration(label: Text("Name")),
-                    onChanged: (val) {
-                      eName = val;
-                    },
+            Container(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(8, 8, 8, 4),
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextField(
+                      controller: myController0,
+                      decoration: const InputDecoration(
+                          label: Text("Name"), border: InputBorder.none),
+                      onChanged: (val) {
+                        eName = val;
+                      },
+                    ),
                   ),
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: TextField(
-                    decoration: const InputDecoration(label: Text("Date")),
-                    controller: myController1,
-                    onChanged: (val) {
-                      date = val;
-                    },
+            Container(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(8, 4, 8, 4),
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextField(
+                      decoration: const InputDecoration(
+                          label: Text("Date"), border: InputBorder.none),
+                      controller: myController1,
+                      onChanged: (val) {
+                        date = val;
+                      },
+                    ),
                   ),
                 ),
               ),
             ),
-            SizedBox(
+            Container(
+              height: 90,
               width: double.infinity,
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.fromLTRB(8, 4, 8, 4),
                 child: Card(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16)),
                   child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: DropdownButton(
-                      value: dropdownvalue,
-                      icon: const Icon(Icons.keyboard_arrow_down),
-                      items: items.map((String items) {
-                        return DropdownMenuItem(
-                          value: items,
-                          child: Text(items),
-                        );
-                      }).toList(),
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          dropdownvalue = newValue!;
-                        });
-                      },
+                    padding: const EdgeInsets.all(8.0),
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton(
+                        value: dropdownvalue,
+                        icon: const Icon(Icons.keyboard_arrow_down),
+                        items: items.map((String items) {
+                          return DropdownMenuItem(
+                            value: items,
+                            child: Text(items),
+                          );
+                        }).toList(),
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            dropdownvalue = newValue!;
+                          });
+                        },
+                      ),
                     ),
                   ),
                 ),
@@ -117,6 +132,7 @@ class _EventMYState extends State<EventMY> {
                           .add(data)
                           .then((value) {
                         Fluttertoast.showToast(msg: "Submitted");
+                        Navigator.pop(context);
                       }).catchError((e) {
                         Fluttertoast.showToast(msg: "Something went wrong $e");
                       });
@@ -132,7 +148,7 @@ class _EventMYState extends State<EventMY> {
                       Fluttertoast.showToast(msg: "Please try again!");
                     }
                   } else {
-                    Fluttertoast.showToast(msg: "Please choose value");
+                    Fluttertoast.showToast(msg: "Please fill all fields");
                   }
                 },
                 child: const Text("Submit"))
